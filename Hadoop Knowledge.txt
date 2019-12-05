@@ -1,0 +1,59 @@
+Hadoop Knowledge
+
+Hadoop is used for Data discovery, data analytics or OLAP system.
+
+1. Volume: The volume represents the amount of data which is growing at an exponential rate i.e. in Petabytes and Exabytes. 
+
+2. Velocity: Velocity refers to the rate at which data is growing, which is very fast. Today, yesterday’s data are considered as old data. Nowadays, social media is a major contributor to the velocity of growing data.
+
+3. Variety: Variety refers to the heterogeneity of data types. In another word, the data which are gathered has a variety of formats like videos, audios, csv, etc. So, these various formats represent the variety of data.
+
+HDFS (Hadoop Distributed File System) is the storage unit of Hadoop. It is responsible for storing different kinds of data as blocks in a distributed environment. It follows master and slave topology.
+
+NameNode: NameNode is the master node in the distributed environment and it maintains the metadata information for the blocks of data stored in HDFS like block location, replication factors etc.
+
+DataNode: DataNodes are the slave nodes, which are responsible for storing data in the HDFS. NameNode manages all the DataNodes.
+
+ResourceManager: It receives the processing requests, and then passes the parts of requests to corresponding NodeManagers accordingly, where the actual processing takes place. It allocates resources to applications based on the needs.
+
+
+NodeManager: NodeManager is installed on every DataNode and it is responsible for the execution of the task on every single DataNode.
+
+11. How does NameNode tackle DataNode failures?
+NameNode periodically receives a Heartbeat (signal) from each of the DataNode in the cluster, which implies DataNode is functioning properly.
+
+A block report contains a list of all the blocks on a DataNode. If a DataNode fails to send a heartbeat message, after a specific period of time it is marked dead.
+
+The NameNode replicates the blocks of dead node to another DataNode using the replicas created earlier.
+
+12. What will you do when NameNode is down?
+The NameNode recovery process involves the following steps to make the Hadoop cluster up and running:
+
+Use the file system metadata replica (FsImage) to start a new NameNode. 
+Then, configure the DataNodes and clients so that they can acknowledge this new NameNode, that is started.
+
+13. What is a checkpoint?
+In brief, “Checkpointing” is a process that takes an FsImage, edit log and compacts them into a new FsImage. Thus, instead of replaying an edit log, the NameNode can load the final in-memory state directly from the FsImage. This is a far more efficient operation and reduces NameNode startup time. Checkpointing is performed by Secondary NameNode. 
+
+14. How is HDFS fault tolerant? 
+When data is stored over HDFS, NameNode replicates the data to several DataNode. The default replication factor is 3. You can change the configuration factor as per your need. If a DataNode goes down, the NameNode will automatically copy the data to another node from the replicas and make the data available. This provides fault tolerance in HDFS.
+
+17. How do you define “block” in HDFS? What is the default block size in Hadoop 1 and in Hadoop 2? Can it be changed? 
+Blocks are the nothing but the smallest continuous location on your hard drive where data is stored. HDFS stores each as blocks, and distribute it across the Hadoop cluster. Files in HDFS are broken down into block-sized chunks, which are stored as independent units.
+
+Hadoop 1 default block size: 64 MB
+Hadoop 2 default block size:  128 MB
+Yes, blocks can be configured. The dfs.block.size parameter can be used in the hdfs-site.xml file to set the size of a block in a Hadoop environment.
+
+18. What does ‘jps’ command do? 
+The ‘jps’ command helps us to check if the Hadoop daemons are running or not. It shows all the Hadoop daemons i.e namenode, datanode, resourcemanager, nodemanager etc. that are running on the machine.
+Now the new NameNode will start serving the client after it has completed loading the last checkpoint FsImage (for metadata information) and received enough block reports from the DataNodes. 
+
+
+
+19. How do you define “Rack Awareness” in Hadoop?
+Rack Awareness is the algorithm in which the “NameNode” decides how blocks and their replicas are placed, based on rack definitions to minimize network traffic between “DataNodes” within the same rack. Let’s say we consider replication factor 3 (default), the policy is that “for every block of data, two copies will exist in one rack, third copy in a different rack”. This rule is known as the “Replica Placement Policy”.
+
+20. What is “speculative execution” in Hadoop? 
+If a node appears to be executing a task slower, the master node can redundantly execute another instance of the same task on another node. Then, the task which finishes first will be accepted and the other one is killed. This process is called “speculative execution”.
+

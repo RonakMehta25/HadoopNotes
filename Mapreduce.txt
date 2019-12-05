@@ -1,0 +1,22 @@
+MapReduce
+
+It is a framework/a programming model that is used for processing large data sets over a cluster of computers using parallel programming.
+
+The main configuration parameters which users need to specify in “MapReduce” framework are:
+
+Job’s input locations in the distributed file system
+Job’s output location in the distributed file system
+Input format of data
+Output format of data
+Class containing the map function
+Class containing the reduce function
+JAR file containing the mapper, reducer and driver classes
+
+What do you know about “SequenceFileInputFormat”?
+“SequenceFileInputFormat” is an input format for reading within sequence files. It is a specific compressed binary file format which is optimized for passing the data between the outputs of one “MapReduce” job to the input of some other “MapReduce” job.
+
+Sequence files can be generated as the output of other MapReduce tasks and are an efficient intermediate representation for data that is passing from one MapReduce job to another.
+
+What is a “Combiner”? 
+A “Combiner” is a mini “reducer” that performs the local “reduce” task. It receives the input from the “mapper” on a particular “node” and sends the output to the “reducer”. “Combiners” help in enhancing the efficiency of “MapReduce” by reducing the quantum of data that is required to be sent to the “reducers”.
+

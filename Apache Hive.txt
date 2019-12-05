@@ -1,0 +1,12 @@
+38. What is “SerDe” in “Hive”?
+Apache Hive is a data warehouse system built on top of Hadoop and is used for analyzing structured and semi-structured data developed by Facebook. Hive abstracts the complexity of Hadoop MapReduce.
+
+The “SerDe” interface allows you to instruct “Hive” about how a record should be processed. A “SerDe” is a combination of a “Serializer” and a “Deserializer”. “Hive” uses “SerDe” (and “FileFormat”) to read and write the table’s row.
+
+To know more about Apache Hive, you can go through this Hive tutorial blog.
+
+39. Can the default “Hive Metastore” be used by multiple users (processes) at the same time?
+“Derby database” is the default “Hive Metastore”. Multiple users (processes) cannot access it at the same time. It is mainly used to perform unit tests.
+
+40. What is the default location where “Hive” stores table data?
+The default location where Hive stores table data is inside HDFS in /user/hive/warehouse.
